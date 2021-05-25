@@ -35,6 +35,11 @@ namespace RestaurantRaterAPI.Models
                 return totalAverageRating / Ratings.Count;
             }
         }
+
+        //AverageFoodScore
+        //AverageEnviromentScore
+        //AverageCleanlinessScore
+
         //Below is the same as opening "get" and returning somthing, this is the streamlined version
         public bool IsRecommended => Rating > 8.5;
     }
