@@ -96,5 +96,31 @@ namespace RestaurantRaterAPI.Controllers
             return InternalServerError();
         }
 
+        //AllRecommendedRestaurants //Get method takes no parameters
+        //[Route] hint hint
+        [HttpGet]
+        [Route("api/Restaurant/IsRecommended")]
+        public async Task<IHttpActionResult> AllRecommendedRestaurants()
+        {
+            List<Restaurant> restaurants = await _context.Restaurants.ToListAsync();
+            List<Restaurant> recommendedRestaurants = new List<Restaurant>();
+
+            foreach (Restaurant restaurant in restaurants)
+            {
+                if (restaurant.IsRecommended)
+                {
+                    recommendedRestaurants.Add(restaurant);
+                }
+            }
+            if (recommendedRestaurants.Count < 1)
+            {
+                return NotFound();
+            }
+            return Ok(recommendedRestaurants);
+
+            //List<Restaurant> restaurants = _context.Restaurants.ToList().Where(r => r.IsRecommended).ToList();
+            //return Ok(restaurants);
+        }
+
     }
 }

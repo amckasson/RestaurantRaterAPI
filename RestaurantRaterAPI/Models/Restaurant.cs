@@ -36,9 +36,48 @@ namespace RestaurantRaterAPI.Models
             }
         }
 
-        //AverageFoodScore
-        //AverageEnviromentScore
-        //AverageCleanlinessScore
+        //AverageFoodScore //Challenge
+        public double AverageFoodScore
+        {
+            get
+            {
+                double totalAverageFoodScore = 0;
+
+                foreach (Rating foodScore in Ratings)
+                {
+                    totalAverageFoodScore += foodScore.FoodScore;
+                }
+                return totalAverageFoodScore / Ratings.Count;
+            }
+        }
+        //AverageEnviromentScore // Challenge
+        public double AverageEnviromentScore
+        {
+            get
+            {
+                double totalAverageEnviromentScore = 0;
+
+                foreach (Rating enviromentScore in Ratings)
+                {
+                    totalAverageEnviromentScore += enviromentScore.EnviromentScore;
+                }
+                return totalAverageEnviromentScore / Ratings.Count;
+            }
+        }
+        //AverageCleanlinessScore // Challenge
+        public double AverageCleanlinessScore
+        {
+            get
+            {
+                double totalAverageCleanlinessScore = 0;
+
+                foreach (Rating cleanlinessScore in Ratings)
+                {
+                    totalAverageCleanlinessScore += cleanlinessScore.CleanlinessScore;
+                }
+                return totalAverageCleanlinessScore / Ratings.Count;
+            }
+        }
 
         //Below is the same as opening "get" and returning somthing, this is the streamlined version
         public bool IsRecommended => Rating > 8.5;
