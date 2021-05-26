@@ -39,7 +39,45 @@ namespace RestaurantRaterAPI.Controllers
         //Get rating by Restaurant ID //Not completly needed
 
         //Update Rating
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateRating(int id, Rating updatedRating)
+        {
+            if (ModelState.IsValid)
+            {
+                Rating rating = await _context.Ratings.FindAsync(id); 
+
+                if (rating != null)
+                {
+                    rating.CleanlinessScore = updatedRating.CleanlinessScore;
+                    rating.EnviromentScore = updatedRating.EnviromentScore;
+                    rating.FoodScore = updatedRating.FoodScore;
+
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                return NotFound();
+            }
+            return BadRequest(ModelState);
+        }
 
         //Delete Rating
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteRating(int id)
+        {
+            Rating rating = await _context.Ratings.FindAsync(id);
+
+            if (rating == null)
+            {
+                return NotFound();
+            }
+
+            _context.Ratings.Remove(rating);
+
+            if (await _context.SaveChangesAsync() == 1)
+            {
+                return Ok("The rating was successfully deleted.");
+            }
+            return InternalServerError();
+        }
     }
 }
